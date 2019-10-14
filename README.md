@@ -13,44 +13,44 @@ Dentro do diretório executar o camando:
 ```
 docker-compose up -d
 ```
-Após ser executada a instalação dos requisitos o servidor estará online então será nexessária a instalação do vendor do composer usando o seguinte comando:
-```
-docker exec -ti php_fpm composer install
-```
-Após a instalação do vendor o servidor Laravel estará em funcionamento e poderá ser testado pelo seguinte endereço **http://localhost:8080**
-
-### Passo 2
-Após executar a instalação do composer chegou a hora de configurar o ambiente, para isto execute os seguintes comandos:
+Após ser executada a instalação dos requisitos o servidor estará online então será nexessária a configuração do Laravel utilizando os seguntes comandos:
 ```
 docker exec -ti php_fpm php artisan key:generate
 ```
 ```
 docker exec -ti php_fpm php artisan config:cache
 ```
-Para criar as tabelas necessárias execute o seguinte comando:
+Após a configuração o serviço estará funcionando e poderá ser testado pelo seguinte endereço **http://localhost:8080**
+
+### Passo 2
+Após executar a configuração do Laravel chegou a hora de executar a migração para criar a estrutura de banco de dados, para isto execute o seguinte comando:
+
 ```
 docker exec -ti php_fpm php artisan migrate
 ```
+
 ### Passo 3
 Após criada a estrutura de banco de dados será necessário fazer a população das tabelas para tal será necessário executar a seguinte sequencia de comandos:
 #### Usando o terminal
 ```
-docker exec php_fpm curl http://172.19.128.3/api/armazena/despesas/2017/1
-docker exec php_fpm curl http://172.19.128.3/api/armazena/despesas/2017/2
-docker exec php_fpm curl http://172.19.128.3/api/armazena/despesas/2017/3
-docker exec php_fpm curl http://172.19.128.3/api/armazena/despesas/2017/4
-docker exec php_fpm curl http://172.19.128.3/api/armazena/despesas/2017/5
-docker exec php_fpm curl http://172.19.128.3/api/armazena/despesas/2017/6
-docker exec php_fpm curl http://172.19.128.3/api/armazena/despesas/2017/7
-docker exec php_fpm curl http://172.19.128.3/api/armazena/despesas/2017/8
-docker exec php_fpm curl http://172.19.128.3/api/armazena/despesas/2017/9
-docker exec php_fpm curl http://172.19.128.3/api/armazena/despesas/2017/10
-docker exec php_fpm curl http://172.19.128.3/api/armazena/despesas/2017/11
-docker exec php_fpm curl http://172.19.128.3/api/armazena/despesas/2017/12
+docker exec php_fpm curl http://172.19.128.3/api/armazena/deputados/2017
+docker exec php_fpm curl --max-time 300 http://172.19.128.3/api/armazena/despesas/2017/1
+docker exec php_fpm curl --max-time 300 http://172.19.128.3/api/armazena/despesas/2017/2
+docker exec php_fpm curl --max-time 300 http://172.19.128.3/api/armazena/despesas/2017/3
+docker exec php_fpm curl --max-time 300 http://172.19.128.3/api/armazena/despesas/2017/4
+docker exec php_fpm curl --max-time 300 http://172.19.128.3/api/armazena/despesas/2017/5
+docker exec php_fpm curl --max-time 300 http://172.19.128.3/api/armazena/despesas/2017/6
+docker exec php_fpm curl --max-time 300 http://172.19.128.3/api/armazena/despesas/2017/7
+docker exec php_fpm curl --max-time 300 http://172.19.128.3/api/armazena/despesas/2017/8
+docker exec php_fpm curl --max-time 300 http://172.19.128.3/api/armazena/despesas/2017/9
+docker exec php_fpm curl --max-time 300 http://172.19.128.3/api/armazena/despesas/2017/10
+docker exec php_fpm curl --max-time 300 http://172.19.128.3/api/armazena/despesas/2017/11
+docker exec php_fpm curl --max-time 300 http://172.19.128.3/api/armazena/despesas/2017/12
 docker exec php_fpm curl http://172.19.128.3/api/armazena/redes
 ```
 #### Usando o navegador
 ```
+http://localhost:8080/api/armazena/deputados/2017
 http://localhost:8080/api/armazena/despesas/2017/1
 http://localhost:8080/api/armazena/despesas/2017/2
 http://localhost:8080/api/armazena/despesas/2017/3
@@ -69,7 +69,7 @@ http://localhost:8080/api/armazena/redes
 ### Acessando os dados
 Para visualizar o resultado dos dados ser utilizado um cliente REST ( Postman, SOAP Ui, etc ), usando o seguinte endereço para obter a listagem de despesas:
 ```
-http://localhost:8080/api/pesquisa/listaDespesas?ano={ano}&mes={mes}&limit={limite}
+http://localhost:8080/api/pesquisa/lista-despesas?ano={ano}&mes={mes}&limit={limite}
 ```
 Os parâmetros a serem passados são:
 - `{ano}`, será setado o ano correspondente (2017 que foi importado)

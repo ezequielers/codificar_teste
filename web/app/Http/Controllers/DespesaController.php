@@ -46,6 +46,7 @@ class DespesaController extends Controller
      */
     public function inserirDespesasDeputados($ano, $mes)
     {
+        set_time_limit(300); //aumenta o tempo de conexão ou alterar no arquivo php.ini max_execution_time
         if ($mes >= 1 && $mes <= 12) {
             /* Obtem a listagem de despesas de cada deputados no mes e ano informado */
             $arrayDespesas = $this->obterDespesasDeputados($ano, $mes);
@@ -55,7 +56,7 @@ class DespesaController extends Controller
 
             $jsonReturn = array(
                 'error' => false,
-                'mensagem' => 'As despesas do mês "' . $this->mesNomes[$mes] . '" foram inseridas.',
+                'mensagem' => 'As despesas do mês "' . $this->mesNomes[str_pad($mes, 2, "0", STR_PAD_LEFT)] . '" foram inseridas.',
                 'status' => JsonResponse::HTTP_OK,
                 'data' => $arrayDespesas
             );
@@ -81,7 +82,7 @@ class DespesaController extends Controller
      */
     public function obterDespesasDeputados($ano, $mes)
     {
-        ini_set('max_execution_time', 300); //aumenta o tempo de conexão ou alterar no arquivo php.ini max_execution_time
+        set_time_limit(300); //aumenta o tempo de conexão ou alterar no arquivo php.ini max_execution_time
         $arrayDespesas = array();
 
         $listaDeputados = DeputadoModel::all(); // busca listagem dos deputados
@@ -108,9 +109,11 @@ class DespesaController extends Controller
      */
     public function requestDespesasDeputados($id, $ano, $mes)
     {
+        set_time_limit(300); //aumenta o tempo de conexão ou alterar no arquivo php.ini max_execution_time
         $url = 'http://dadosabertos.almg.gov.br/ws/prestacao_contas/verbas_indenizatorias/deputados/' . $id . '/' . $ano . '/' . $mes . '?formato=json';
         $ch = curl_init(); // Inicia a sessão cURL
         curl_setopt($ch, CURLOPT_URL, $url); // Informa a URL onde será enviada a requisição
+        curl_setopt($ch, CURLOPT_TIMEOUT, 300); // Informa o timeout para execução da URL
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Se true retorna o conteúdo em forma de string para uma variável
 
         $resultado = json_decode(curl_exec($ch)); // Envia a requisição e realiza um json decode

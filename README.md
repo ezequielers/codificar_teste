@@ -35,7 +35,6 @@ docker exec -ti php_fpm php artisan migrate
 Após criada a estrutura de banco de dados será necessário fazer a população das tabelas para tal será necessário executar a seguinte sequencia de comandos:
 #### Usando o terminal
 ```
-docker exec php_fpm curl http://172.19.128.3/api/armazena/deputados/2017
 docker exec php_fpm curl http://172.19.128.3/api/armazena/despesas/2017/1
 docker exec php_fpm curl http://172.19.128.3/api/armazena/despesas/2017/2
 docker exec php_fpm curl http://172.19.128.3/api/armazena/despesas/2017/3
@@ -48,26 +47,27 @@ docker exec php_fpm curl http://172.19.128.3/api/armazena/despesas/2017/9
 docker exec php_fpm curl http://172.19.128.3/api/armazena/despesas/2017/10
 docker exec php_fpm curl http://172.19.128.3/api/armazena/despesas/2017/11
 docker exec php_fpm curl http://172.19.128.3/api/armazena/despesas/2017/12
+docker exec php_fpm curl http://172.19.128.3/api/armazena/redes
 ```
 #### Usando o navegador
 ```
-docker exec php_fpm curl http:/localhost:8080/api/armazena/deputados/2017
-docker exec php_fpm curl http://localhost:8080/api/armazena/despesas/2017/1
-docker exec php_fpm curl http://localhost:8080/api/armazena/despesas/2017/2
-docker exec php_fpm curl http://localhost:8080/api/armazena/despesas/2017/3
-docker exec php_fpm curl http://localhost:8080/api/armazena/despesas/2017/4
-docker exec php_fpm curl http://localhost:8080/api/armazena/despesas/2017/5
-docker exec php_fpm curl http://localhost:8080/api/armazena/despesas/2017/6
-docker exec php_fpm curl http://localhost:8080/api/armazena/despesas/2017/7
-docker exec php_fpm curl http://localhost:8080/api/armazena/despesas/2017/8
-docker exec php_fpm curl http://localhost:8080/api/armazena/despesas/2017/9
-docker exec php_fpm curl http://localhost:8080/api/armazena/despesas/2017/10
-docker exec php_fpm curl http://localhost:8080/api/armazena/despesas/2017/11
-docker exec php_fpm curl http://localhost:8080/api/armazena/despesas/2017/12
+http://localhost:8080/api/armazena/despesas/2017/1
+http://localhost:8080/api/armazena/despesas/2017/2
+http://localhost:8080/api/armazena/despesas/2017/3
+http://localhost:8080/api/armazena/despesas/2017/4
+http://localhost:8080/api/armazena/despesas/2017/5
+http://localhost:8080/api/armazena/despesas/2017/6
+http://localhost:8080/api/armazena/despesas/2017/7
+http://localhost:8080/api/armazena/despesas/2017/8
+http://localhost:8080/api/armazena/despesas/2017/9
+http://localhost:8080/api/armazena/despesas/2017/10
+http://localhost:8080/api/armazena/despesas/2017/11
+http://localhost:8080/api/armazena/despesas/2017/12
+http://localhost:8080/api/armazena/redes
 ```
 
 ### Acessando os dados
-Para visualizar o resultado dos dados ser utilizado um cliente REST ( Postman, SOAP Ui, etc ), usando o seguinte endereço:
+Para visualizar o resultado dos dados ser utilizado um cliente REST ( Postman, SOAP Ui, etc ), usando o seguinte endereço para obter a listagem de despesas:
 ```
 http://localhost:8080/api/pesquisa/listaDespesas?ano={ano}&mes={mes}&limit={limite}
 ```
@@ -75,3 +75,8 @@ Os parâmetros a serem passados são:
 - `{ano}`, será setado o ano correspondente (2017 que foi importado)
 - `{mes}`, será setado o mes correspondente sem zeros a esquerda
 - `{limite}`, a quantidade de registros a serem retornados
+
+Para visualizar o resultado dos dados ser utilizado um cliente REST ( Postman, SOAP Ui, etc ), usando o seguinte endereço para obter a listagem de redes sociais:
+```
+http://localhost:8080/api/pesquisa/lista-redes
+```
